@@ -1,0 +1,154 @@
+.encyclopedia h1 { font-size: 2.2rem; margin-bottom: 28px; }
+
+.enc-tabs { display: flex; gap: 4px; margin-bottom: 20px; }
+.enc-tab {
+  padding: 8px 24px; background: transparent;
+  color: var(--text-secondary); border: 1px solid var(--border-color);
+  border-radius: 6px; font-size: 0.88rem; font-weight: 500;
+  cursor: pointer; transition: all 0.25s;
+  font-family: var(--font-body);
+}
+.enc-tab:hover { color: var(--text-primary); }
+.enc-tab.active {
+  color: var(--accent-cyan); border-color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+}
+
+/* 행성 서브탭 */
+.enc-sub-tabs { display: flex; gap: 4px; margin-bottom: 24px; }
+.enc-sub-tab {
+  padding: 5px 18px; background: transparent;
+  color: var(--text-dim); border: 1px solid var(--border-color);
+  border-radius: 20px; font-size: 0.8rem; font-weight: 500;
+  cursor: pointer; transition: all 0.25s;
+  font-family: var(--font-body);
+}
+.enc-sub-tab:hover { color: var(--text-secondary); }
+.enc-sub-tab.active {
+  color: var(--accent-cyan); border-color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+}
+
+/* 행성 그리드 */
+.enc-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.enc-card {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px; cursor: pointer;
+}
+.enc-card-color {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+}
+.enc-card-info { flex: 1; }
+.enc-card-info h3 { font-size: 1.1rem; margin-bottom: 2px; }
+.enc-card-en { font-size: 0.78rem; color: var(--text-dim); margin-right: 8px; }
+.enc-card-type {
+  font-size: 0.72rem; color: var(--accent-cyan);
+  background: var(--accent-cyan-dim); padding: 2px 8px;
+  border-radius: 4px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  display: inline-block;
+}
+.enc-card-stat { text-align: right; }
+.enc-stat-val { display: block; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-primary); }
+.enc-stat-label { font-size: 0.7rem; color: var(--text-dim); }
+
+/* 항성 리스트 */
+.enc-list { display: flex; flex-direction: column; gap: 12px; }
+.enc-row {
+  padding: 24px; cursor: pointer;
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start;
+}
+.enc-row-left { min-width: 160px; }
+.enc-row-left h3 { font-size: 1.15rem; }
+.enc-row-desc {
+  flex: 1; min-width: 250px; color: var(--text-secondary);
+  font-size: 0.9rem; line-height: 1.6;
+}
+.enc-row-meta {
+  display: flex; gap: 20px; width: 100%; padding-top: 8px;
+  border-top: 1px solid var(--border-color); margin-top: 4px;
+  font-size: 0.8rem; color: var(--text-dim);
+}
+.enc-row-meta strong { color: var(--accent-cyan); margin-left: 4px; }
+
+/* Coming Soon */
+/* 외계행성 안내 문구 */
+.exo-notice {
+  background: rgba(0, 229, 204, 0.04);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent-cyan);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.exo-notice strong {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.enc-coming-soon {
+  text-align: center; padding: 80px 20px;
+  color: var(--text-secondary); font-size: 1.2rem;
+}
+.enc-sub { font-size: 0.9rem; color: var(--text-dim); margin-top: 8px; }
+
+/* 상세 모달 */
+.detail-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px; animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.detail-modal {
+  max-width: 620px; width: 100%; max-height: 85vh; overflow-y: auto;
+  padding: 36px; position: relative;
+}
+.detail-close {
+  position: absolute; top: 16px; right: 16px;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 1.2rem; cursor: pointer; transition: color 0.2s;
+}
+.detail-close:hover { color: var(--text-primary); }
+
+.detail-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.detail-color {
+  width: 56px; height: 56px; border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255,255,255,0.15);
+}
+.detail-header h2 { font-size: 1.6rem; margin-bottom: 4px; }
+.detail-desc { color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px; }
+
+.detail-specs {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  margin-bottom: 24px;
+}
+.spec {
+  background: rgba(0,229,204,0.04); padding: 12px 16px;
+  border-radius: 8px; border: 1px solid var(--border-color);
+}
+.spec-label { display: block; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 4px; }
+.spec-value { font-family: var(--font-mono); font-size: 0.88rem; color: var(--accent-cyan); }
+
+.detail-facts { margin-top: 8px; }
+.detail-facts h4 { margin-bottom: 12px; font-size: 0.95rem; }
+.detail-facts ul { list-style: none; padding: 0; }
+.detail-facts li {
+  padding: 8px 0; border-bottom: 1px solid var(--border-color);
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;
+}
+.detail-facts li::before { content: '→ '; color: var(--accent-cyan); }
+
+@media (max-width: 768px) {
+  .enc-grid { grid-template-columns: 1fr; }
+  .detail-overlay { padding: 20px; }
+  .detail-specs { grid-template-columns: 1fr; }
+}

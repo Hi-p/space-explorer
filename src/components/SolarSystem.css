@@ -1,0 +1,64 @@
+.solar-page h1 { font-size: 2.2rem; margin-bottom: 8px; }
+.solar-note { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 40px; }
+
+.solar-layout {
+  display: flex; gap: 40px; align-items: flex-start;
+}
+
+.solar-canvas-wrap {
+  flex: 1; aspect-ratio: 1; min-height: 450px;
+  border-radius: 16px; overflow: hidden;
+  background: radial-gradient(ellipse at center, #0a0a1a 0%, #050510 100%);
+  border: 1px solid var(--border-color);
+}
+
+.solar-sidebar {
+  width: 340px; flex-shrink: 0;
+}
+
+.sidebar-title {
+  font-size: 0.95rem; color: var(--accent-cyan);
+  margin-bottom: 20px; font-weight: 600;
+}
+
+.orbit-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.82rem;
+}
+
+.orbit-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+
+.orbit-name {
+  width: 52px; color: var(--text-primary); font-weight: 500;
+  white-space: nowrap;
+}
+
+.orbit-bar-wrap {
+  flex: 1; height: 3px; background: rgba(255,255,255,0.06);
+  border-radius: 2px; overflow: hidden;
+}
+
+.orbit-bar {
+  height: 100%; border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.orbit-period {
+  font-family: var(--font-mono); color: var(--accent-cyan);
+  font-size: 0.78rem; min-width: 40px; text-align: right;
+}
+
+.orbit-au {
+  font-family: var(--font-mono); color: var(--text-dim);
+  font-size: 0.72rem; min-width: 55px; text-align: right;
+}
+
+@media (max-width: 900px) {
+  .solar-layout { flex-direction: column; }
+  .solar-sidebar { width: 100%; }
+  .solar-canvas-wrap { min-height: 350px; aspect-ratio: auto; height: 400px; }
+}
