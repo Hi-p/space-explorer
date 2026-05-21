@@ -18,11 +18,16 @@ const dataSources = [
 ]
 
 const roadmap = [
-  { version: 'v1.0', desc: '백과사전 + 2D/3D 태양계', done: true },
-  { version: 'v1.1', desc: '88개 별자리 데이터 완성', done: false },
-  { version: 'v1.2', desc: 'NASA APOD API 연동', done: false },
-  { version: 'v1.3', desc: '실시간 국제 우주정거장 추적', done: false },
-  { version: 'v1.4', desc: '별자리 3D 뷰어', done: false },
+  { version: 'v1.0', desc: '백과사전 + 3D 태양계 시뮬레이션', done: true },
+  { version: 'v1.1', desc: '외계행성 35개 + 항성 20개 데이터 확장', done: true },
+  { version: 'v1.2', desc: 'IAU 공인 88개 별자리 데이터 완성', done: true },
+  { version: 'v1.3', desc: '뉴스 페이지 매거진형 개편 (필터/하이라이트)', done: true },
+  { version: 'v1.4', desc: '시뮬레이션 행성 클릭 인터랙션', done: true },
+  { version: 'v1.5', desc: 'NASA APOD API 연동 (오늘의 천문 사진)', done: false },
+  { version: 'v1.6', desc: '실시간 국제 우주정거장(ISS) 위치 추적', done: false },
+  { version: 'v1.7', desc: '별자리 3D 뷰어 (Three.js 별 연결선)', done: false },
+  { version: 'v1.8', desc: '다국어 지원 (한국어 / English)', done: false },
+  { version: 'v2.0', desc: '사용자 즐겨찾기 & 학습 진도 시스템', done: false },
 ]
 
 export default function About() {
@@ -90,12 +95,26 @@ export default function About() {
 
         <div className="about-roadmap">
           <h2>개발 로드맵</h2>
+          <div className="roadmap-progress-wrap">
+            <div className="roadmap-progress-bar">
+              <div
+                className="roadmap-progress-fill"
+                style={{ width: `${(roadmap.filter(r => r.done).length / roadmap.length) * 100}%` }}
+              />
+            </div>
+            <span className="roadmap-progress-text">
+              {roadmap.filter(r => r.done).length} / {roadmap.length} 완료
+            </span>
+          </div>
           <div className="roadmap-list glass-card">
             {roadmap.map(r => (
-              <div key={r.version} className={`roadmap-item ${r.done ? 'done' : ''}`}>
+              <div key={r.version} className={`roadmap-item ${r.done ? 'done' : 'pending'}`}>
+                <span className="roadmap-check">{r.done ? '✓' : '○'}</span>
                 <span className="roadmap-ver">{r.version}</span>
                 <span className="roadmap-desc">{r.desc}</span>
-                {r.done && <span className="roadmap-badge">완료</span>}
+                <span className={`roadmap-badge ${r.done ? 'badge-done' : 'badge-pending'}`}>
+                  {r.done ? '완료' : '예정'}
+                </span>
               </div>
             ))}
           </div>

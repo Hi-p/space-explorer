@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { solarSystemBodies, dwarfPlanets, notableStars, exoPlanets } from '../data/planets'
+import { constellations } from '../data/constellations'
 import './Encyclopedia.css'
 
 const allPlanets = [...solarSystemBodies, ...dwarfPlanets]
@@ -8,6 +9,12 @@ export default function Encyclopedia() {
   const [tab, setTab] = useState('행성')
   const [planetTab, setPlanetTab] = useState('태양계')
   const [selected, setSelected] = useState(null)
+  const [seasonFilter, setSeasonFilter] = useState('전체')
+
+  const seasons = ['전체', '봄', '여름', '가을', '겨울', '사계절', '남반구']
+  const filteredConstellations = seasonFilter === '전체'
+    ? constellations
+    : constellations.filter(c => c.season === seasonFilter)
 
   const closeDetail = () => setSelected(null)
 
@@ -153,10 +160,45 @@ export default function Encyclopedia() {
 
       {/* 별자리 탭 */}
       {tab === '별자리' && (
-        <div className="enc-coming-soon">
-          <p>🌟 88개 별자리 데이터 준비 중...</p>
-          <p className="enc-sub">계절별·지역별 분류와 신화 정보가 포함됩니다.</p>
-        </div>
+        <>
+          <div className="exo-notice">
+            별자리(Constellation)는 천구 위의 별들을 연결해 만든 상상의 무늬로, 국제천문연맹(IAU)이 공인한 <strong>88개</strong>의 공식 별자리가 있다. 이들은 고대 그리스·로마 신화, 대항해시대의 탐험, 그리고 18세기 과학 도구에서 이름을 따왔으며, 천문학자들이 천체의 위치를 소통하는 좌표 체계의 기초가 된다.
+          </div>
+
+          <div className="news-filters">
+            {seasons.map(s => (
+              <button
+                key={s}
+                className={`news-filter-btn ${seasonFilter === s ? 'active' : ''}`}
+                onClick={() => setSeasonFilter(s)}
+              >
+                {s === '전체' ? '전체' : s === '봄' ? '🌸 봄' : s === '여름' ? '☀️ 여름' : s === '가을' ? '🍂 가을' : s === '겨울' ? '❄️ 겨울' : s === '사계절' ? '🔄 사계절(주극성)' : '🌏 남반구'}
+              </button>
+            ))}
+          </div>
+
+          <p className="news-count">총 <strong>{filteredConstellations.length}</strong>개 별자리</p>
+
+          <div className="enc-grid">
+            {filteredConstellations.map(c => (
+              <div
+                key={c.id}
+                className="enc-card glass-card"
+                onClick={() => setSelected(c)}
+              >
+                <div className="enc-card-body">
+                  <h3>{c.name}</h3>
+                  <span className="enc-card-en">{c.nameEn}</span>
+                  <span className="enc-card-type">{c.season} · {c.hemisphere}</span>
+                </div>
+                <div className="enc-card-stat">
+                  <span className="enc-stat-val">{c.area.toLocaleString()}</span>
+                  <span className="enc-stat-label">평방도</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* 상세 모달 */}
@@ -276,6 +318,36 @@ export default function Encyclopedia() {
               </div>
             )}
 
+
+            {/* 별자리 상세 스펙 */}
+            {selected.area && selected.mainStars && (
+              <div className="detail-specs">
+                <div className="spec">
+                  <span className="spec-label">면적</span>
+                  <span className="spec-value">{selected.area.toLocaleString()} 평방도</span>
+                </div>
+                <div className="spec">
+                  <span className="spec-label">주요 별 수</span>
+                  <span className="spec-value">{selected.mainStars}개</span>
+                </div>
+                <div className="spec">
+                  <span className="spec-label">가장 밝은 별</span>
+                  <span className="spec-value">{selected.brightestStar}</span>
+                </div>
+                <div className="spec">
+                  <span className="spec-label">관측 계절</span>
+                  <span className="spec-value">{selected.season}</span>
+                </div>
+              </div>
+            )}
+
+            {/* 신화 */}
+            {selected.mythology && (
+              <div className="detail-facts">
+                <h4>📜 신화와 유래</h4>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '0.9rem' }}>{selected.mythology}</p>
+              </div>
+            )}
 
             {/* 흥미로운 사실 */}
             {selected.facts && (
