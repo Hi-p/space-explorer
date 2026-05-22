@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { solarSystemBodies, dwarfPlanets, notableStars, exoPlanets } from '../data/planets'
 import { constellations } from '../data/constellations'
+import { blackHoles, blackHoleDebates, alienTopics, alienDebates } from '../data/deepspace'
 import './Encyclopedia.css'
 
 const allPlanets = [...solarSystemBodies, ...dwarfPlanets]
@@ -32,7 +33,7 @@ export default function Encyclopedia() {
       <h1>천문학 백과사전</h1>
 
       <div className="enc-tabs">
-        {['행성', '항성', '별자리'].map(t => (
+        {['행성', '항성', '별자리', '블랙홀', '외계 생명'].map(t => (
           <button
             key={t}
             className={`enc-tab ${tab === t ? 'active' : ''}`}
@@ -201,6 +202,98 @@ export default function Encyclopedia() {
         </>
       )}
 
+      {/* 블랙홀 탭 */}
+      {tab === '블랙홀' && (
+        <>
+          <div className="exo-notice">
+            블랙홀(Black Hole)은 시공간의 곡률이 극도로 강해 빛조차 빠져나올 수 없는 천체이다. 1915년 아인슈타인의 일반상대성이론으로 예측되었으며, 2019년 사건 지평선 망원경(EHT)이 최초의 블랙홀 이미지를 촬영함으로써 그 존재가 시각적으로 확인되었다.
+          </div>
+
+          <h3 className="enc-section-title">🕳️ 블랙홀 유형</h3>
+          <div className="enc-grid">
+            {blackHoles.map(bh => (
+              <div key={bh.id} className="enc-card glass-card" onClick={() => setSelected(bh)}>
+                <div className="enc-card-body">
+                  <h3>{bh.name}</h3>
+                  <span className="enc-card-en">{bh.nameEn}</span>
+                  <span className="enc-card-type">{bh.type}</span>
+                </div>
+                <div className="enc-card-stat">
+                  <span className="enc-stat-val" style={{ fontSize: '0.85rem' }}>{bh.mass}</span>
+                  <span className="enc-stat-label">질량 범위</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h3 className="enc-section-title">💬 주요 논제와 쟁점</h3>
+          <div className="debate-list">
+            {blackHoleDebates.map(d => (
+              <div key={d.id} className="debate-card glass-card">
+                <div className="debate-header">
+                  <span className="debate-category">{d.category}</span>
+                  <h4 className="debate-title">{d.title}</h4>
+                  <p className="debate-summary">{d.summary}</p>
+                </div>
+                <p className="debate-desc">{d.description}</p>
+                <div className="debate-perspectives">
+                  {d.perspectives.map((p, i) => (
+                    <div key={i} className="perspective-item">
+                      <span className="perspective-label">{p.position}</span>
+                      <p className="perspective-detail">{p.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* 외계 생명 탭 */}
+      {tab === '외계 생명' && (
+        <>
+          <div className="exo-notice">
+            외계 생명(Extraterrestrial Life)의 탐색은 현대 천문학에서 가장 근본적인 질문 중 하나이다. "우리는 우주에서 유일한 존재인가?"라는 물음은 우주생물학(Astrobiology)이라는 학제 간 연구 분야를 탄생시켰으며, 케플러 우주 망원경과 JWST의 관측 데이터는 이 질문에 과학적 답을 구하는 데 핵심적인 역할을 하고 있다.
+          </div>
+
+          <h3 className="enc-section-title">👽 핵심 개념과 탐색</h3>
+          <div className="enc-grid">
+            {alienTopics.map(at => (
+              <div key={at.id} className="enc-card glass-card" onClick={() => setSelected(at)}>
+                <div className="enc-card-body">
+                  <h3>{at.name}</h3>
+                  <span className="enc-card-en">{at.nameEn}</span>
+                  <span className="enc-card-type">{at.category}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h3 className="enc-section-title">💬 주요 논제와 쟁점</h3>
+          <div className="debate-list">
+            {alienDebates.map(d => (
+              <div key={d.id} className="debate-card glass-card">
+                <div className="debate-header">
+                  <span className="debate-category">{d.category}</span>
+                  <h4 className="debate-title">{d.title}</h4>
+                  <p className="debate-summary">{d.summary}</p>
+                </div>
+                <p className="debate-desc">{d.description}</p>
+                <div className="debate-perspectives">
+                  {d.perspectives.map((p, i) => (
+                    <div key={i} className="perspective-item">
+                      <span className="perspective-label">{p.position}</span>
+                      <p className="perspective-detail">{p.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
       {/* 상세 모달 */}
       {selected && (
         <div className="detail-overlay" onClick={closeDetail}>
@@ -338,6 +431,26 @@ export default function Encyclopedia() {
                   <span className="spec-label">관측 계절</span>
                   <span className="spec-value">{selected.season}</span>
                 </div>
+              </div>
+            )}
+
+            {/* 블랙홀 상세 스펙 */}
+            {selected.formation && selected.mass && !selected.mainStars && (
+              <div className="detail-specs">
+                <div className="spec">
+                  <span className="spec-label">질량 범위</span>
+                  <span className="spec-value">{selected.mass}</span>
+                </div>
+                <div className="spec">
+                  <span className="spec-label">형성 과정</span>
+                  <span className="spec-value">{selected.formation}</span>
+                </div>
+                {selected.example && (
+                  <div className="spec">
+                    <span className="spec-label">대표 천체</span>
+                    <span className="spec-value">{selected.example}</span>
+                  </div>
+                )}
               </div>
             )}
 

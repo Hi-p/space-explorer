@@ -147,8 +147,82 @@
 }
 .detail-facts li::before { content: '→ '; color: var(--accent-cyan); }
 
+/* 섹션 타이틀 */
+.enc-section-title {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 36px 0 16px;
+  font-weight: 600;
+}
+
+/* 논제 카드 */
+.debate-list {
+  display: flex; flex-direction: column; gap: 20px;
+}
+.debate-card {
+  padding: 28px;
+}
+.debate-header {
+  margin-bottom: 16px;
+}
+.debate-category {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.debate-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 10px 0 6px;
+}
+.debate-summary {
+  font-size: 0.88rem;
+  color: var(--accent-cyan);
+  font-style: italic;
+  line-height: 1.5;
+}
+.debate-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.debate-perspectives {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.perspective-item {
+  padding: 14px 18px;
+  background: rgba(0, 229, 204, 0.03);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent-cyan);
+  border-radius: 6px;
+}
+.perspective-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: rgba(0, 229, 204, 0.08);
+  padding: 2px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.perspective-detail {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .enc-grid { grid-template-columns: 1fr; }
   .detail-overlay { padding: 20px; }
   .detail-specs { grid-template-columns: 1fr; }
+  .debate-card { padding: 20px; }
 }
